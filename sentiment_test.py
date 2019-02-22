@@ -39,4 +39,4 @@ def testPhrase(phrase):
     print('\n')
 
 print('\n\n')
-testPhrase('dobby takes it rough but gives it tender')
+testPhrase('Hi GitHub!')
