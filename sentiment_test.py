@@ -1,7 +1,5 @@
 #Ben Shakow
 from __future__ import absolute_import, division, print_function
-import matplotlib.pyplot as plt
-import random
 from keras.models import load_model
 import tensorflow as tf
 import keras
@@ -11,7 +9,7 @@ import pickle
 
 
 
-model = load_model('C:/Code/seq2seq/Keras/modelSave2.h5')
+model = load_model('modelSave2.h5')
 
 with open('tokenizer.pickle', 'rb') as handle:
     token = pickle.load(handle)

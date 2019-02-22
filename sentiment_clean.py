@@ -20,8 +20,8 @@ def load_text(filename):
     docs = text.split('\n')
     return docs
 
-goodList = load_text('C:/Code/seq2seq/Keras/good.txt')
-badList = load_text('C:/Code/seq2seq/Keras/bad.txt')
+goodList = load_text('good.txt')
+badList = load_text('bad.txt')
 
 
 totList = goodList+badList
