@@ -10,7 +10,7 @@ File = open('C:/Code/LanguageNeuralNets/tokens.txt','r')
 token = File.read()
 File.close()
 
-bot = commands.Bot(command_prefix='$')
+prefix = '!'
 
 client = discord.Client()
 
@@ -18,9 +18,17 @@ client = discord.Client()
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
-@bot.command()
-async def test(ctx, arg):
-    await ctx.send('The worde you sent was ' + arg)
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
 
+    if message.content.startswith(prefix+'hello'):
+        await client.send_message(message.channel, content = "Hello!")
+    if message.content.startswith(prefix+'hewwo'):
+        await client.send_message(message.channel, content = "Hey pwease stop! owo")
+    if message.content.startswith(prefix+'p'):
+        
+        await client.send_message(message.channel, content = "Hello!")
 
 client.run(token.strip())
