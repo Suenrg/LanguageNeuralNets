@@ -11,7 +11,6 @@ import pickle
 
 class STest:
     def __init__(self):
-        print('this is being done')
         self.model = load_model('.modularSave.h5')
         with open('tokenizer.pickle', 'rb') as handle:
             self.token = pickle.load(handle)

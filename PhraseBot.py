@@ -39,13 +39,17 @@ async def on_message(message):
 
     if message.content.startswith(prefix+'good'):
         phrase = message.content[6:]
-        await client.send_message(message.channel, content = 'The phrase "' + phrase + '" is now in the good words list! :)')
+        await client.send_message(message.channel, content = 'The phrase "' + phrase + '" is now in the good words list!')
         f = open(goodPath, "a")
         f.write(phrase + '\n')
         f.close()
         return
     if message.content.startswith(prefix+'bad'):
-        await client.send_message(message.channel, content = "Hey pwease stop! owo")
+        phrase = message.content[5:]
+        await client.send_message(message.channel, content = 'The phrase "' + phrase + '" is now in the bad words list!')
+        f = open(badPath, "a")
+        f.write(phrase + '\n')
+        f.close()
         return
     if message.content.startswith(prefix+'p'):
         phrase = message.content[2:]
