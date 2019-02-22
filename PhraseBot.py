@@ -15,14 +15,16 @@ from discord.ext import commands
 from STest import STest
 
 #Receive token from hidden file
-File = open('C:/Code/LanguageNeuralNets/tokens.txt','r')
+File = open('tokens.txt','r')
 token = File.read()
 File.close()
 
 prefix = '?'
 
 nn = STest()
-print(nn.token)
+
+goodPath = 'good.txt'
+badPath = 'bad.txt'
 
 client = discord.Client()
 
@@ -35,10 +37,14 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith(prefix+'hello'):
-        await client.send_message(message.channel, content = "Hello!")
+    if message.content.startswith(prefix+'good'):
+        phrase = message.content[6:]
+        await client.send_message(message.channel, content = 'The phrase "' + phrase + '" is now in the good words list! :)')
+        f = open(goodPath, "a")
+        f.write(phrase + '\n')
+        f.close()
         return
-    if message.content.startswith(prefix+'hewwo'):
+    if message.content.startswith(prefix+'bad'):
         await client.send_message(message.channel, content = "Hey pwease stop! owo")
         return
     if message.content.startswith(prefix+'p'):

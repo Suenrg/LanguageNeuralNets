@@ -70,8 +70,8 @@ data[:], labels[:] = zip(*dataset)
 data = np.array(data)
 labels = np.array(labels)
 
-testCut = 370
-valCut = 70
+testCut = round(.7 * len(data))
+valCut = round(.2 * len(data))
 
 train_data = data[:testCut]
 test_data = data[testCut:]
@@ -109,11 +109,11 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 
 
 
-history = model.fit(partial_x_train, partial_y_train, epochs=470, batch_size=512, validation_data=(x_val, y_val), verbose=0)
+history = model.fit(partial_x_train, partial_y_train, epochs=600, batch_size=125, validation_data=(x_val, y_val), verbose=0)
 
 results = model.evaluate(test_data, test_labels)
 
-model.save('C:/Code/seq2seq/Keras/modelSave2.h5')
+model.save('.modularSave.h5')
 
 
 print(results)
@@ -152,28 +152,3 @@ plt.legend()
 
 plt.show()
 #'''
-'''
-def testPhrase(phrase):
-    doc = keras.preprocessing.text.text_to_word_sequence(phrase, filters='!"#%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n', lower=True, split=" ")
-    for l in range(len(doc)):
-        temp = doc[l]
-        doc[l] = token.word_index.get(temp)
-        if (doc[l] == None):
-            doc[l]=0
-    while len(doc)<35:
-        doc.append(0)
-    data = []
-    for i in range(100):
-        data.append(doc)
-    data = np.array(data)
-    label = []
-    for i in range(100):
-        label.append(1)
-    label = np.array(label)
-    print(data)
-    tested = model.evaluate(data, label)
-    print(tested)
-    #print('The phrase: '+ phrase + ' is ', end='')
-
-testPhrase('the cat found their way home')
-'''
