@@ -1,28 +1,23 @@
 #Discord Bot
 #Ben Shakow
 #with help from https://discordpy.readthedocs.io
-# from __future__ import absolute_import, division, print_function
 import discord
 from discord.ext import commands
-# import matplotlib.pyplot as plt
-# import random
-# from keras.models import load_model
-# import tensorflow as tf
-# import keras
-# from keras.preprocessing.text import Tokenizer
-# import numpy as np
-# import pickle
 from STest import STest
 
 #Receive token from hidden file
-File = open('C:/Code/LanguageNeuralNets/tokens.txt','r')
+File = open('tokens.txt','r')
 token = File.read()
 File.close()
 
-prefix = '?'
 
+#Bring in our neural network
 nn = STest()
-print(nn.token)
+
+#set up file paths / prefixes
+prefix = '?'
+goodPath = 'good.txt'
+badPath = 'bad.txt'
 
 client = discord.Client()
 
@@ -34,13 +29,22 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-
-    if message.content.startswith(prefix+'hello'):
-        await client.send_message(message.channel, content = "Hello!")
+    #these two are for adding to the bad/good lists
+    if message.content.startswith(prefix+'good'):
+        phrase = message.content[6:]
+        await client.send_message(message.channel, content = 'The phrase "' + phrase + '" is now in the good words list!')
+        f = open(goodPath, "a")
+        f.write(phrase + '\n')
+        f.close()
         return
-    if message.content.startswith(prefix+'hewwo'):
-        await client.send_message(message.channel, content = "Hey pwease stop! owo")
+    if message.content.startswith(prefix+'bad'):
+        phrase = message.content[5:]
+        await client.send_message(message.channel, content = 'The phrase "' + phrase + '" is now in the bad words list!')
+        f = open(badPath, "a")
+        f.write(phrase + '\n')
+        f.close()
         return
+    #for actually checking a phrase
     if message.content.startswith(prefix+'p'):
         phrase = message.content[2:]
         result = nn.testPhrase(phrase)
