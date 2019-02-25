@@ -37,6 +37,14 @@ async def on_message(message):
         f.write(phrase + '\n')
         f.close()
         return
+    if message.content.startswith(prefix+'recalibrate'):
+        await client.send_message(message.channel, content = 'Recalibrating the neural network')
+        exec(open("sentiment_clean.py").read())
+        File = open('acc','r')
+        acc = File.read()
+        File.close()
+        await client.send_message(message.channel, content = 'Neural Network recalibrated, with an accuracy of '+acc)
+        return
     if message.content.startswith(prefix+'bad'):
         phrase = message.content[5:]
         await client.send_message(message.channel, content = 'The phrase "' + phrase + '" is now in the bad words list!')
